@@ -1,5 +1,6 @@
 import {
   GraphQLID,
+  GraphQLInt,
   GraphQLObjectType,
   GraphQLSchema,
   GraphQLString,
@@ -24,12 +25,27 @@ const books = [
   },
 ];
 
+const authors = [
+  { name: "Francis Beresford", age: 39, id: "1" },
+  { name: "Donovan Craig", age: 45, id: "2" },
+  { name: "Jackson Tong", age: 32, id: "3" },
+];
+
 const BookType = new GraphQLObjectType({
   name: "Book",
   fields: () => ({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
     genre: { type: GraphQLString },
+  }),
+});
+
+const AuthorType = new GraphQLObjectType({
+  name: "Author",
+  fields: () => ({
+    id: { type: GraphQLID },
+    name: { type: GraphQLString },
+    age: { type: GraphQLInt },
   }),
 });
 
@@ -41,6 +57,13 @@ const RootQuery = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return _.find(books, { id: args.id });
+      },
+    },
+    author: {
+      type: AuthorType,
+      args: { id: { type: GraphQLID } },
+      resolve(parent, args) {
+        return _.find(authors, { id: args.id });
       },
     },
   },
