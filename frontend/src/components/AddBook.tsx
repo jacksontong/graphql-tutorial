@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { Formik, Field, Form } from "formik";
+import { toast } from "react-toastify";
 import { addBookMutation, getAuthorsQuery, getBooksQuery } from "../queries";
 
 const AddBook = () => {
@@ -20,6 +21,7 @@ const AddBook = () => {
           variables: values,
           refetchQueries: [getBooksQuery],
         });
+        toast("Book created success fully.");
       }}
     >
       {({ isSubmitting }) => (

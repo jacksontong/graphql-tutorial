@@ -26,3 +26,11 @@ export const addBookMutation = gql`
     }
   }
 `;
+
+export const deleteBookMutation = gql`
+  mutation ($id: ID!) {
+    deleteBook(id: $id) {
+      name
+    }
+  }
+`;
