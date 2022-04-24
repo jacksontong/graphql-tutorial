@@ -4,6 +4,7 @@ import { graphqlHTTP } from "express-graphql";
 import schema from "./schemas";
 import path from "path";
 import mongoose from "mongoose";
+import cors from "cors";
 
 dotenv.config({
   path: path.join(__dirname, "../../.env"),
@@ -29,6 +30,7 @@ mongoose.connection.once("open", () => {
 });
 
 // middlewares
+app.use(cors());
 app.use(
   "/graphql",
   graphqlHTTP({
