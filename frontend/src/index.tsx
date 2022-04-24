@@ -1,9 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
+import "react-toastify/dist/ReactToastify.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { ToastContainer } from "react-toastify";
 
 const client = new ApolloClient({
   uri: "http://localhost:8000/graphql",
@@ -18,6 +20,7 @@ root.render(
     <ApolloProvider client={client}>
       <App />
     </ApolloProvider>
+    <ToastContainer />
   </React.StrictMode>
 );
 
