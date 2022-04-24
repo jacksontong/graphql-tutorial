@@ -1,9 +1,10 @@
-import { gql, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { Formik, Field, Form } from "formik";
-import { getAuthorsQuery } from "../queries";
+import { addBookMutation, getAuthorsQuery, getBooksQuery } from "../queries";
 
 const AddBook = () => {
   const { data, error, loading } = useQuery(getAuthorsQuery);
+  const [addBook, { data: bookQuery }] = useMutation(addBookMutation);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
@@ -15,7 +16,10 @@ const AddBook = () => {
         authorId: "",
       }}
       onSubmit={async (values) => {
-        console.log(values);
+        await addBook({
+          variables: values,
+          refetchQueries: [getBooksQuery],
+        });
       }}
     >
       {({ isSubmitting }) => (
